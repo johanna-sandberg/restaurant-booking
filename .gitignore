@@ -39,3 +39,34 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Prisma
+/prisma/dev.db
+/prisma/dev.db-journal
+/prisma/migrations/
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+.next/cache/logs/*
+
+# TailwindCSS
+.postcssrc
+.tailwind.config.js
+.tailwindcss.config.js
+
+# Vercel Deployment
+output.log
+
+# Temporary Files
+*.tmp
+*.swp
+
+# IDEs and Editors
+.vscode/
+.idea/
+*.iml
