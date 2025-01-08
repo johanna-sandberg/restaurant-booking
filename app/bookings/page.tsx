@@ -1,6 +1,6 @@
 'use client'
 
-import BookingForm from '@/app/bookings/BookingForm'
+import BookingForm from '@/bookings/BookingForm'
 
 export default function BookingPage() {
   const handleSubmit = (data: {
