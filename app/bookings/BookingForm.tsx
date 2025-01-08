@@ -72,55 +72,85 @@ const BookingForm: React.FC<BookingFormProps> = ({ onSubmit }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form
+      onSubmit={handleSubmit}
+      className='max-w-lg mx-auto p-8 space-y-6 bg-gray-300 dark:bg-gray-800 text-gray-900 dark:text-white rounded-lg shadow-lg border border-gray-300 dark:border-gray-600'
+    >
+      <h2 className='text-2xl font-semibold text-center mb-4'>Book a Table</h2>
+
       <div>
-        <label htmlFor='name'>Name</label>
+        <label htmlFor='name' className='block text-sm font-medium mb-2'>
+          Name
+        </label>
         <input
           id='name'
           name='name'
           value={formData.name}
           onChange={handleChange}
+          className='w-full p-3 border rounded-lg text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
         />
-        {errors.name && <p>{errors.name}</p>}
+        {errors.name && (
+          <p className='text-sm text-red-500 mt-1'>{errors.name}</p>
+        )}
       </div>
 
       <div>
-        <label htmlFor='email'>Email</label>
+        <label htmlFor='email' className='block text-sm font-medium mb-2'>
+          Email
+        </label>
         <input
           id='email'
           name='email'
           type='email'
           value={formData.email}
           onChange={handleChange}
+          className='w-full p-3 border rounded-lg text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
         />
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && (
+          <p className='text-sm text-red-500 mt-1'>{errors.email}</p>
+        )}
       </div>
 
       <div>
-        <label htmlFor='guests'>Number of Guests</label>
+        <label htmlFor='guests' className='block text-sm font-medium mb-2'>
+          Number of Guests
+        </label>
         <input
           id='guests'
           name='guests'
           type='number'
           value={formData.guests}
           onChange={handleChange}
+          className='w-full p-3 border rounded-lg text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
         />
-        {errors.guests && <p>{errors.guests}</p>}
+        {errors.guests && (
+          <p className='text-sm text-red-500 mt-1'>{errors.guests}</p>
+        )}
       </div>
 
       <div>
-        <label htmlFor='dateTime'>Date and Time</label>
+        <label htmlFor='dateTime' className='block text-sm font-medium mb-2'>
+          Date and Time
+        </label>
         <input
           id='dateTime'
           name='dateTime'
           type='datetime-local'
           value={formData.dateTime}
           onChange={handleChange}
+          className='w-full p-3 border rounded-lg text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400'
         />
-        {errors.dateTime && <p>{errors.dateTime}</p>}
+        {errors.dateTime && (
+          <p className='text-sm text-red-500 mt-1'>{errors.dateTime}</p>
+        )}
       </div>
 
-      <button type='submit'>Submit</button>
+      <button
+        type='submit'
+        className='w-full py-3 mt-4 bg-green-900 text-white rounded-lg hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-blue-300'
+      >
+        Submit
+      </button>
     </form>
   )
 }

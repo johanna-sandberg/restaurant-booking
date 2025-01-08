@@ -15,8 +15,7 @@ export default function BookingPage() {
   }
 
   return (
-    <div>
-      <h1>Book a Table</h1>
+    <div className='py-8'>
       <BookingForm onSubmit={handleSubmit} />
     </div>
   )
