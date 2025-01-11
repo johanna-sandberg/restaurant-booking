@@ -1,4 +1,4 @@
-import BookingForm from '@/bookings/BookingForm'
+import BookingForm from '@/app/bookings/BookingForm'
 import { fireEvent, render, screen } from '@testing-library/react'
 
 describe('BookingForm', () => {
