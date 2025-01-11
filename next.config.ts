@@ -1,7 +1,19 @@
-import type { NextConfig } from "next";
+import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  /* config options here */
-};
+  reactStrictMode: true,
+  env: {
+    DATABASE_URL: process.env.DATABASE_URL,
+  },
+  eslint: {
+    dirs: ['app', 'pages'],
+  },
+  typescript: {
+    ignoreBuildErrors: false,
+  },
+  webpack: (config) => {
+    return config
+  },
+}
 
-export default nextConfig;
+export default nextConfig
