@@ -1,4 +1,5 @@
-import BookingForm from '@/app/bookings/BookingForm'
+import BookingForm from '@/app/book-table/BookingForm'
+import '@testing-library/jest-dom'
 import { fireEvent, render, screen } from '@testing-library/react'
 
 describe('BookingForm', () => {
@@ -6,7 +7,7 @@ describe('BookingForm', () => {
     render(<BookingForm onSubmit={jest.fn()} />)
     expect(screen.getByLabelText(/name/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/email/i)).toBeInTheDocument()
-    expect(screen.getByLabelText(/number of guests/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/guests/i)).toBeInTheDocument()
     expect(screen.getByLabelText(/date and time/i)).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /submit/i })).toBeInTheDocument()
   })
@@ -18,18 +19,17 @@ describe('BookingForm', () => {
     expect(await screen.findByText(/name is required/i)).toBeInTheDocument()
     expect(await screen.findByText(/email is required/i)).toBeInTheDocument()
     expect(
-      await screen.findByText(/number of guests must be between 1 and 8/i)
-    ).toBeInTheDocument()
-    expect(
-      await screen.findByText(/date and time is required/i)
+      await screen.findByText(/date and time must be in the future/i)
     ).toBeInTheDocument()
   })
 
   it('should display a validation error for an invalid email format', async () => {
     render(<BookingForm onSubmit={jest.fn()} />)
+
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { value: 'invalid-email' },
     })
+
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
 
     expect(await screen.findByText(/invalid email format/i)).toBeInTheDocument()
@@ -37,13 +37,13 @@ describe('BookingForm', () => {
 
   it('should display validation error when number of guests is out of range', async () => {
     render(<BookingForm onSubmit={jest.fn()} />)
-    fireEvent.change(screen.getByLabelText(/number of guests/i), {
+    fireEvent.change(screen.getByLabelText(/guests/i), {
       target: { value: '0' },
     })
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
 
     expect(
-      await screen.findByText(/number of guests must be between 1 and 8/i)
+      await screen.findByText(/number of guests must be at least 1/i)
     ).toBeInTheDocument()
   })
 
@@ -57,11 +57,11 @@ describe('BookingForm', () => {
     fireEvent.change(screen.getByLabelText(/email/i), {
       target: { value: 'john@example.com' },
     })
-    fireEvent.change(screen.getByLabelText(/number of guests/i), {
+    fireEvent.change(screen.getByLabelText(/guests/i), {
       target: { value: '4' },
     })
     fireEvent.change(screen.getByLabelText(/date and time/i), {
-      target: { value: '2025-01-10T19:00' },
+      target: { value: '2025-01-18T19:00' },
     })
 
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
@@ -70,7 +70,7 @@ describe('BookingForm', () => {
       name: 'John Doe',
       email: 'john@example.com',
       guests: 4,
-      dateTime: '2025-01-10T19:00',
+      dateTime: '2025-01-18T19:00',
     })
   })
 
@@ -83,26 +83,27 @@ describe('BookingForm', () => {
     fireEvent.change(screen.getByLabelText(/name/i), {
       target: { value: 'John Doe' },
     })
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }))
     expect(screen.queryByText(/name is required/i)).not.toBeInTheDocument()
   })
 
   it('should handle non-numeric and extreme values for guests input', async () => {
     render(<BookingForm onSubmit={jest.fn()} />)
 
-    fireEvent.change(screen.getByLabelText(/number of guests/i), {
+    fireEvent.change(screen.getByLabelText(/guests/i), {
       target: { value: '-1' },
     })
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
     expect(
-      await screen.findByText(/number of guests must be between 1 and 8/i)
+      await screen.findByText(/number of guests must be at least 1/i)
     ).toBeInTheDocument()
 
-    fireEvent.change(screen.getByLabelText(/number of guests/i), {
+    fireEvent.change(screen.getByLabelText(/guests/i), {
       target: { value: 'abc' },
     })
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
     expect(
-      await screen.findByText(/number of guests must be between 1 and 8/i)
+      await screen.findByText(/number of guests must be at least 1/i)
     ).toBeInTheDocument()
   })
 
@@ -114,7 +115,7 @@ describe('BookingForm', () => {
     })
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
     expect(
-      await screen.findByText(/date and time is required/i)
+      await screen.findByText(/date and time must be in the future/i)
     ).toBeInTheDocument()
   })
 
@@ -146,5 +147,16 @@ describe('BookingForm', () => {
     fireEvent.click(screen.getByRole('button', { name: /submit/i }))
 
     expect(mockOnSubmit).not.toHaveBeenCalled()
+  })
+
+  it('should display validation error when number of guests exceeds maximum limit', async () => {
+    render(<BookingForm onSubmit={jest.fn()} />)
+    fireEvent.change(screen.getByLabelText(/guests/i), {
+      target: { value: '9' },
+    })
+    fireEvent.click(screen.getByRole('button', { name: /submit/i }))
+    expect(
+      await screen.findByText(/number of guests can't be more than 8/i)
+    ).toBeInTheDocument()
   })
 })

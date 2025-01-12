@@ -1,6 +1,6 @@
 'use client'
 
-import BookingForm from '@/app/bookings/BookingForm'
+import BookingForm from './BookingForm'
 
 export default function BookingPage() {
   const handleSubmit = async (data: {
@@ -20,15 +20,21 @@ export default function BookingPage() {
 
       if (!response.ok) {
         const errorData = await response.json()
-        console.error('Error:', errorData)
+        if (process.env.NODE_ENV === 'development') {
+          console.error('Error:', errorData)
+        }
         return
       }
 
       const booking = await response.json()
-      console.log('Booking created:', booking)
+      if (process.env.NODE_ENV === 'development') {
+        console.log('Booking created:', booking)
+      }
       alert('Booking created successfully!')
     } catch (error) {
-      console.error('Unexpected error:', error)
+      if (process.env.NODE_ENV === 'development') {
+        console.error('Unexpected error:', error)
+      }
       alert('Failed to create booking. Please try again.')
     }
   }

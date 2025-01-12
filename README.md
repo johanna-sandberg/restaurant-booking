@@ -1,17 +1,82 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Restaurant Booking Application
 
-## Getting Started
+This is a full-stack restaurant booking application built with:
 
-First, run the development server:
+- **Next.js** (14/15)
+- **React**
+- **TypeScript**
+- **PostgreSQL** (with Prisma ORM)
+- **TailwindCSS**
+
+The application is deployed on **Vercel** and includes customer and admin functionalities.
+
+---
+
+## Features
+
+- Book tables with details (name, email, guests, date, and time).
+- Admin dashboard to manage bookings.
+- Validations using Zod.
+- Responsive design with TailwindCSS.
+
+---
+
+## Requirements
+
+- Node.js 18 or later
+- PostgreSQL database
+- A Vercel account for deployment
+
+---
+
+## Local Setup
+
+1. **Clone the repository**:
+
+   ```bash
+   git clone https://github.com/johanna-sandberg/restaurant-booking.git
+   cd restaurant-booking
+   ```
+
+2. **Install dependencies**:
+
+   ```bash
+   npm install
+   ```
+
+3. **Set up environment variables**:
+   Create a `.env` file in the root of your project with the following content:
+
+   ```
+   DATABASE_URL=your_postgresql_connection_string
+   ```
+
+   Replace `your_postgresql_connection_string` with the PostgeSQL connection string for your database.
+
+4. **Generate the Prisma client**:
+
+   ```bash
+   npx prisma generate
+   ```
+
+5. **Apply the database schema**:
+
+   ```bash
+   npx prisma migrate dev --name init
+   ```
+
+6. **Start the development server**:
+   ```bash
+   npm run dev
+   ```
+   The application will be available at [http://localhost:3000](http://localhost:3000).
+
+---
+
+## Testing
+
+Run the tests:
 
 ```bash
-npm run dev
+npm run test
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
