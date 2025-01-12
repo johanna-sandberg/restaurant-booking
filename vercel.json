@@ -1,5 +1,0 @@
-{
-  "build": {
-    "buildCommand": "npx prisma migrate deploy && next build"
-  }
-}
