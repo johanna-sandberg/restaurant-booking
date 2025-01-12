@@ -2,13 +2,19 @@ Restaurant Booking Application
 
 This is a full-stack restaurant booking application built with:
 
-- **Next.js** (14/15)
-- **React**
+- **Next.js**
 - **TypeScript**
-- **PostgreSQL** (with Prisma ORM)
+- **PostgreSQL**
+- **Prisma**
 - **TailwindCSS**
 
 The application is deployed on **Vercel** and includes customer and admin functionalities.
+
+---
+
+## Live Demo
+
+You can view the live version of the application here: [Restaurant Booking App](https://restaurant-booking-plum.vercel.app/)
 
 ---
 
