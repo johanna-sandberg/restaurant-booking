@@ -1,44 +1,42 @@
 'use client'
 
+import { useFetch } from '@/hooks/useFetch'
 import { Booking } from '@/types/Booking'
-import { useEffect, useState } from 'react'
 import ListBookings from './ListBookings'
 
 export default function AdminPage() {
-  const [bookings, setBookings] = useState<Booking[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const {
+    data: bookings,
+    loading,
+    error,
+  } = useFetch<Booking[]>('/api/bookings/list')
 
-  useEffect(() => {
-    async function fetchBookings() {
-      try {
-        const response = await fetch('/api/bookings/list')
-        if (!response.ok) {
-          throw new Error('Failed to fetch bookings')
-        }
-        const data = await response.json()
-        setBookings(data)
-      } catch (err) {
-        if (err instanceof Error) {
-          setError(err.message)
-        } else {
-          setError('Unknown error occurred')
-        }
-      } finally {
-        setLoading(false)
-      }
-    }
+  if (loading)
+    return (
+      <div className='min-h-screen flex justify-center items-center'>
+        <p className='text-gray-600 dark:text-gray-300 animate-pulse'>
+          Loading bookings...
+        </p>
+      </div>
+    )
 
-    fetchBookings()
-  }, [])
-
-  if (loading) return <p>Loading bookings...</p>
-  if (error) return <p className='text-red-500'>{error}</p>
+  if (error)
+    return (
+      <div className='min-h-screen flex justify-center items-center'>
+        <p className='text-red-500 transition-opacity duration-300 ease-in'>
+          {error}
+        </p>
+      </div>
+    )
 
   return (
     <div className='min-h-screen p-8'>
       <h1 className='text-3xl font-bold mb-6'>Admin Dashboard</h1>
-      {bookings.length === 0 ? <p>No bookings available.</p> : <ListBookings />}
+      {bookings ? (
+        <ListBookings bookings={bookings} />
+      ) : (
+        <p>No bookings available.</p>
+      )}
     </div>
   )
 }
