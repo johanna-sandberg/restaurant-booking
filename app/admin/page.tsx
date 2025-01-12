@@ -31,7 +31,9 @@ export default function AdminPage() {
 
   return (
     <div className='min-h-screen p-8'>
-      <h1 className='text-3xl font-bold mb-6'>Admin Dashboard</h1>
+      <h1 className='max-w-screen-sm mx-auto text-3xl font-bold mb-6'>
+        Admin Dashboard
+      </h1>
       {bookings ? (
         <ListBookings bookings={bookings} />
       ) : (
