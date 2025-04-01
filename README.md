@@ -1,6 +1,6 @@
 Restaurant Booking Application
 
-This is a full-stack restaurant booking application built with:
+This is a full-stack restaurant booking application developed as a solution to a programming assignment. It is built with:
 
 - **Next.js**
 - **TypeScript**
